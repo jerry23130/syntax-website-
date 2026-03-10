@@ -1,0 +1,100 @@
+import Link from 'next/link'
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
+import { projects } from '@/lib/mock-data'
+
+export default function OurWorkPreview() {
+  return (
+    <section className="py-24 bg-white relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(156 163 175 / 0.05) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px'
+        }} />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center space-x-2 bg-teal-50 border border-teal-200 rounded-full px-4 py-2 mb-6">
+            <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
+            <span className="text-sm font-semibold text-teal-700">Success Stories</span>
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mt-3 mb-6">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600">Work We&apos;re</span><br />
+            Proud Of
+          </h2>
+          <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
+            Real projects, real results. See how we&apos;ve helped businesses like yours succeed with cutting-edge solutions.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {projects.slice(0, 3).map((project, index) => (
+            <div
+              key={project.title}
+              className="group bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-2xl hover:shadow-teal-50/50 transition-all duration-500 hover:-translate-y-2 relative"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <span className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+                    {project.result}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="p-8">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-xs font-semibold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-cyan-600 uppercase tracking-wider">{project.client}</p>
+                  <div className="w-8 h-8 bg-teal-50 rounded-full flex items-center justify-center">
+                    <span className="text-teal-600 text-sm font-bold">{project.client.charAt(0)}</span>
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-teal-700 transition-colors">{project.title}</h3>
+                <p className="text-gray-600 leading-relaxed mb-6 text-sm">{project.description}</p>
+                
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.slice(0, 3).map((tag) => (
+                    <span key={tag} className="text-xs bg-gradient-to-r from-teal-50 to-cyan-50 text-gray-700 px-3 py-2 rounded-md border border-teal-100">{tag}</span>
+                  ))}
+                  {project.tags.length > 3 && (
+                    <span className="text-xs text-gray-500">+{project.tags.length - 3} more</span>
+                  )}
+                </div>
+                
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100 group-hover:border-teal-200 transition-colors">
+                  <span className="text-sm text-gray-500 group-hover:text-teal-600 transition-colors">View case study</span>
+                  <ArrowRight size={16} className="text-teal-600 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-16">
+          <Link
+            href="/our-work"
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+          >
+            <span>View All Projects</span>
+            <ArrowRight size={18} />
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
